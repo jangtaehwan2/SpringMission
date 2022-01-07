@@ -1,6 +1,8 @@
 package mission.firstmission.domain.users;
 
-public interface UsersRepository {
-    // id(식별용), name, pw
-    // constructor(회원가입),
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UsersRepository extends JpaRepository<Users, Long> {
+
+    Users findByName(String name);
 }
