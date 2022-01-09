@@ -2,14 +2,16 @@ package mission.firstmission.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import mission.firstmission.domain.users.Users;
 
 @Getter
+@NoArgsConstructor
 public class UsersSignInDto {
 
-    private final String name;
-    private final String pw;
+    private String name;
+    private String pw;
 
     @Builder
     public UsersSignInDto(String name, String pw) {

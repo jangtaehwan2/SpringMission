@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h1>hello, world</h1>
+<h1 th:if="${users == null}">Hello, Spring</h1>
+<h1 th:if="${users != null}" th:text = "'Hello, ' + ${users.name}"></h1>
+<h2><a href="/">index</a></h2>
+<p></p>
+<h2><a href="/signup">sign up</a></h2>
+<p></p>
+<h2 th:if="${users != null}"><a href="/logout">log out</a></h2>
+<h2 th:if="${users == null}"><a href="/signin">sign in</a></h2>
+<p></p>
+<h2 th:if="${users != null}"><a href="/list">list</a></h2>
 </body>
 </html>

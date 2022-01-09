@@ -1,5 +1,6 @@
 package mission.firstmission.domain.users;
 
+import mission.firstmission.dto.UsersSignInDto;
 import mission.firstmission.dto.UsersSignUpDto;
 import mission.firstmission.service.UsersService;
 import org.junit.jupiter.api.AfterEach;
@@ -82,5 +83,25 @@ public class UserServiceTest {
                 .build()));
         //then
         assertThat(e.getMessage()).isEqualTo("Validate Users Name");
+    }
+
+    @Test
+    public void userSignInTest() {
+        //given
+        String name = "name";
+        String pw = "pw";
+        long userId = usersService.signUp(UsersSignUpDto.builder()
+                .name(name)
+                .pw(pw)
+                .build());
+        //when
+        Users user = usersService.signIn(UsersSignInDto.builder()
+                .name(name)
+                .pw(pw)
+                .build());
+        //then
+        assertThat(user.getId()).isEqualTo(userId);
+        assertThat(user.getName()).isEqualTo(name);
+        assertThat(user.getPw()).isEqualTo(pw);
     }
 }

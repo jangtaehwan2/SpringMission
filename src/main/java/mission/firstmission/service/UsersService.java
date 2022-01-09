@@ -8,6 +8,8 @@ import mission.firstmission.dto.UsersSignUpDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor // final 변수들을 입력 받는 기본 생성자
 @Service
 public class UsersService {
@@ -18,7 +20,7 @@ public class UsersService {
     // 1. 회원 등록 기능
     // 2. 로그인 기능
     // 3. 회원 보기 기능 (로그인 필요)
-    // 4. 추후 여력이 된다면,,, -> 유저 수정/삭제 기능
+    // 4. 추후 여력이 된다면,,, -> 유저 수정/삭제 기능 추가 해보기
 
     @Transactional
     public Long signUp(UsersSignUpDto signUpDto) {
@@ -33,7 +35,6 @@ public class UsersService {
         }
     }
 
-
     @Transactional
     public Users signIn(UsersSignInDto signInDto) {
         Users users = usersRepository.findByName(signInDto.getName());
@@ -45,7 +46,10 @@ public class UsersService {
         }
         return users;
     }
-//    public List<Users> list() {
-//
-//    }
+
+    @Transactional
+    public List<Users> signUpUsers() {
+        List<Users> usersList = usersRepository.findAll();
+        return usersList;
+    }
 }
