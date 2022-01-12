@@ -2,8 +2,8 @@ package mission.firstmission.controller;
 
 import lombok.RequiredArgsConstructor;
 import mission.firstmission.domain.users.Users;
-import mission.firstmission.dto.UsersSignInDto;
-import mission.firstmission.dto.UsersSignUpDto;
+import mission.firstmission.domain.users.dto.UsersSignInDto;
+import mission.firstmission.domain.users.dto.UsersSignUpDto;
 import mission.firstmission.service.UsersService;
 import org.springframework.web.bind.annotation.*;
 

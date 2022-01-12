@@ -2,10 +2,9 @@ package mission.firstmission.controller;
 
 import lombok.RequiredArgsConstructor;
 import mission.firstmission.domain.users.Users;
-import mission.firstmission.dto.UsersSignInDto;
-import mission.firstmission.dto.UsersSignUpDto;
+import mission.firstmission.domain.users.dto.UsersSignInDto;
+import mission.firstmission.domain.users.dto.UsersSignUpDto;
 import mission.firstmission.service.UsersService;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

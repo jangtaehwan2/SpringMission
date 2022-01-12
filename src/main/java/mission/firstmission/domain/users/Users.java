@@ -4,13 +4,14 @@ package mission.firstmission.domain.users;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import mission.firstmission.domain.time.TimeEntity;
 
 import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor // 기본 생성자 어노테이션
 @Entity
-public class Users {
+public class Users extends TimeEntity {
 
     @Id // PK를 의미하는 어노테이션
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment 부여 어노테이션
