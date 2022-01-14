@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import javax.persistence.Column;
 
 
 @NoArgsConstructor
@@ -13,7 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Posts{
 
     @Id
-    private String _id;
+    private String id;
 
     private String title;
 
@@ -21,6 +24,11 @@ public class Posts{
 
     @Builder
     public Posts(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
+    public void update(String title, String content) {
         this.title = title;
         this.content = content;
     }

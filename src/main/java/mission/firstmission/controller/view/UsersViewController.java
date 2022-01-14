@@ -1,4 +1,4 @@
-package mission.firstmission.controller;
+package mission.firstmission.controller.view;
 
 import lombok.RequiredArgsConstructor;
 import mission.firstmission.domain.users.Users;
