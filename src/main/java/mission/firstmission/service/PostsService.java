@@ -2,13 +2,12 @@ package mission.firstmission.service;
 
 import lombok.RequiredArgsConstructor;
 import mission.firstmission.domain.posts.Posts;
-import mission.firstmission.domain.posts.PostsRepository;
+import mission.firstmission.repository.nosql.PostsRepository;
 import mission.firstmission.domain.posts.dto.PostsCreateDto;
 import mission.firstmission.domain.posts.dto.PostsDeleteDto;
 import mission.firstmission.domain.posts.dto.PostsUpdateDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Optional;
 
 import java.util.List;
 
@@ -31,9 +30,8 @@ public class PostsService {
 
     @Transactional
     public Posts postsReadById(String id) {
-        List<Posts> postsList = postsRepository.findAllById(id);
-        Posts posts = postsList.get(0);
-//                .orElseThrow(() -> new IllegalArgumentException("posts not found"));
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("posts not found"));
         return posts;
     }
 
@@ -52,7 +50,6 @@ public class PostsService {
     }
 
     @Transactional
-    // 왜 동작을 안할까유?
     public boolean postsDelete(PostsDeleteDto postsDeleteDto) {
         Posts posts = postsRepository.findById(postsDeleteDto.getId())
                 .orElseThrow(() -> new IllegalArgumentException("posts not found"));

@@ -2,7 +2,6 @@ package mission.firstmission.controller.api;
 
 import lombok.RequiredArgsConstructor;
 import mission.firstmission.domain.posts.Posts;
-import mission.firstmission.domain.posts.PostsRepository;
 import mission.firstmission.domain.posts.dto.PostsCreateDto;
 import mission.firstmission.domain.posts.dto.PostsDeleteDto;
 import mission.firstmission.domain.posts.dto.PostsUpdateDto;
@@ -40,6 +39,8 @@ public class PostsApiController {
 
     @PutMapping("/api/posts")
     public Posts postsUpdate(@RequestBody PostsUpdateDto postsUpdateDto) {
+
+        // postService.postsUpdate(id, title, content);
 
         return postsService.postsUpdate(postsUpdateDto);
     }

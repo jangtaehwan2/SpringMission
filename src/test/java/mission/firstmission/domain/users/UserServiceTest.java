@@ -2,6 +2,7 @@ package mission.firstmission.domain.users;
 
 import mission.firstmission.domain.users.dto.UsersSignInDto;
 import mission.firstmission.domain.users.dto.UsersSignUpDto;
+import mission.firstmission.repository.relational.UsersRepository;
 import mission.firstmission.service.UsersService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

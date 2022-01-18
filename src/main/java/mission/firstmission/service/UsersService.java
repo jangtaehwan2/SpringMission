@@ -2,7 +2,7 @@ package mission.firstmission.service;
 
 import lombok.RequiredArgsConstructor;
 import mission.firstmission.domain.users.Users;
-import mission.firstmission.domain.users.UsersRepository;
+import mission.firstmission.repository.relational.UsersRepository;
 import mission.firstmission.domain.users.dto.UsersSignInDto;
 import mission.firstmission.domain.users.dto.UsersSignUpDto;
 import org.springframework.stereotype.Service;
