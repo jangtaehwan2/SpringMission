@@ -18,8 +18,12 @@ public class PostsService {
     private final PostsRepository postsRepository;
 
     @Transactional
-    public Posts postsCreate(PostsCreateDto postsCreateDto) {
-        return postsRepository.save(postsCreateDto.toEntity());
+    public Posts postsCreate(String title, String content) {
+        Posts posts = Posts.builder()
+                .title(title)
+                .content(content)
+                .build();
+        return postsRepository.save(posts);
     }
 
     @Transactional
@@ -41,17 +45,17 @@ public class PostsService {
     }
 
     @Transactional
-    public Posts postsUpdate(PostsUpdateDto postsUpdateDto) {
-        Posts posts = postsRepository.findById(postsUpdateDto.getId())
+    public Posts postsUpdate(String id, String title, String content) {
+        Posts posts = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("posts not found"));
-        posts.update(postsUpdateDto.getTitle(), postsUpdateDto.getContent());
+        posts.update(title, content);
         postsRepository.save(posts);
         return posts;
     }
 
     @Transactional
-    public boolean postsDelete(PostsDeleteDto postsDeleteDto) {
-        Posts posts = postsRepository.findById(postsDeleteDto.getId())
+    public boolean postsDelete(String id) {
+        Posts posts = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("posts not found"));
         postsRepository.delete(posts);
         return true;

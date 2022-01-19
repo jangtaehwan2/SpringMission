@@ -19,7 +19,9 @@ public class PostsApiController {
     // posts c r u d
     @PostMapping("/api/posts")
     public Posts postsCreate(@RequestBody PostsCreateDto postsCreateDto) {
-        return postsService.postsCreate(postsCreateDto);
+        String title = postsCreateDto.getTitle();
+        String content = postsCreateDto.getContent();
+        return postsService.postsCreate(title, content);
     }
 
     @GetMapping("/api/posts/title/{title}")
@@ -40,13 +42,17 @@ public class PostsApiController {
     @PutMapping("/api/posts")
     public Posts postsUpdate(@RequestBody PostsUpdateDto postsUpdateDto) {
 
-        // postService.postsUpdate(id, title, content);
+//         postService.postsUpdate(id, title, content);
+        String id = postsUpdateDto.getId();
+        String title = postsUpdateDto.getTitle();
+        String content = postsUpdateDto.getContent();
 
-        return postsService.postsUpdate(postsUpdateDto);
+        return postsService.postsUpdate(id, title, content);
     }
 
     @DeleteMapping("/api/posts")
     public boolean postsDelete(@RequestBody PostsDeleteDto postsDeleteDto) {
-        return postsService.postsDelete(postsDeleteDto);
+        String id = postsDeleteDto.getId();
+        return postsService.postsDelete(id);
     }
 }
