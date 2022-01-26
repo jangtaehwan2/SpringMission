@@ -1,4 +1,4 @@
-package mission.firstmission.client;
+package mission.firstmission.datacenter.apiclient;
 
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 @RequiredArgsConstructor
 public class SearchApiClient {
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
     private final String CLIENT_ID = "ryGvVUFL0n3PnjOW2goX";
     private final String CLIENT_SECRET = "4JoRE4EkFT";

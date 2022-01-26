@@ -2,10 +2,7 @@ package mission.firstmission.service;
 
 import lombok.RequiredArgsConstructor;
 import mission.firstmission.domain.posts.Posts;
-import mission.firstmission.repository.nosql.PostsRepository;
-import mission.firstmission.domain.posts.dto.PostsCreateDto;
-import mission.firstmission.domain.posts.dto.PostsDeleteDto;
-import mission.firstmission.domain.posts.dto.PostsUpdateDto;
+import mission.firstmission.datacenter.repository.nosql.PostsRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

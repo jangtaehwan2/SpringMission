@@ -1,8 +1,9 @@
 package mission.firstmission.service;
 
 import lombok.RequiredArgsConstructor;
+import mission.firstmission.datacenter.DataCenter;
 import mission.firstmission.domain.users.Users;
-import mission.firstmission.repository.relational.UsersRepository;
+import mission.firstmission.datacenter.repository.relational.UsersRepository;
 import mission.firstmission.domain.users.dto.UsersSignInDto;
 import mission.firstmission.domain.users.dto.UsersSignUpDto;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.List;
 public class UsersService {
 
     private final UsersRepository usersRepository;
+    private final DataCenter dataCenter;
 
     // 필요한 기능들
     // 1. 회원 등록 기능
@@ -51,5 +53,11 @@ public class UsersService {
     public List<Users> signUpUsers() {
         List<Users> usersList = usersRepository.findAll();
         return usersList;
+    }
+
+    @Transactional
+    public Users findUsers(Long id) {
+        return dataCenter.getUsersById(id)
+                .orElseThrow(()-> new IllegalArgumentException("Not found Users"));
     }
 }

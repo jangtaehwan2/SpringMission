@@ -1,4 +1,4 @@
-package mission.firstmission.repository.nosql;
+package mission.firstmission.datacenter.repository.nosql;
 
 import mission.firstmission.domain.posts.Posts;
 import org.springframework.data.mongodb.repository.MongoRepository;

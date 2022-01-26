@@ -38,5 +38,10 @@ public class UserApiController {
         }
         return usersService.signUpUsers();
     }
-}
 
+    @GetMapping("/api/users/{id}")
+    public Users getUsersById(@PathVariable Long id) {
+        return usersService.findUsers(id);
+    }
+
+}

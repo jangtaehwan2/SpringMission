@@ -1,4 +1,4 @@
-package mission.firstmission.repository.relational;
+package mission.firstmission.datacenter.repository.relational;
 
 import mission.firstmission.domain.users.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
