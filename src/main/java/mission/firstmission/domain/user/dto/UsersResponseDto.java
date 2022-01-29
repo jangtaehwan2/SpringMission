@@ -17,13 +17,12 @@ public class UsersResponseDto {
         public String username;
         public String first_name;
         public String last_name;
-//        public String email;
-//        public String groups;
-//        public boolean is_staff;
-//        public boolean is_superuser;
-//        public boolean is_active;
-//        public String last_login;
-//        public String date_joined;
+        public String email;
+        public String[] groups;
+        public boolean is_staff;
+        public boolean is_superuser;
+        public boolean is_active;
+        public String date_joined;
+        public String last_login;
     }
-
 }

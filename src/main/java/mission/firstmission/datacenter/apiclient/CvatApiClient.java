@@ -8,11 +8,15 @@ import mission.firstmission.domain.user.dto.UsersResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,20 +26,18 @@ public class CvatApiClient {
 
     private final RestTemplate restTemplate;
 
-    private final String signingUrl = "https://localhost:8080/api/v1/auth/signing";
+    private final String signingUrl = "http://localhost:8080/api/v1/auth/signing";
 
-    private final String apiUrl = "https://localhost:8080/api/v1/users?search=Django";
+    private final String apiUrl = "http://localhost:8080/api/v1/users?search=Django";
 
-    private final String loginUrl = "https://localhost:8080/api/v1/auth/login";
+    private final String loginUrl = "http://localhost:8080/api/v1/auth/login";
 
-    private final String registerUrl = "https://localhost:8080/api/v1/auth/register";
-
-    private final String serverKey = "eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImRqYW5nbyJ9%3A1nCi52%3AZi5zg5GAPUQ7Q8ltNH-hbDNIzqZgnUYGhRlgths2_gg";
+    private final String registerUrl = "http://localhost:8080/api/v1/auth/register";
 
     public String authUrl() {
         HashMap<String, Object> serverUrl = new HashMap<>();
-        serverUrl.put("url", "http://localhost:8080/api/v1/users/1");
-        return restTemplate.postForLocation(signingUrl, serverUrl).toString();
+        serverUrl.put("url", "localhost:3000");
+        return restTemplate.postForObject(signingUrl, serverUrl, String.class);
     }
 
     public RegisterDto requestRegister(RegisterDto registerDto) {
@@ -52,13 +54,11 @@ public class CvatApiClient {
     public LoginDto requestLogin(LoginDto loginDto) {
 
         HttpHeaders header = new HttpHeaders();
-        header.add("sign", serverKey);
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
 
         body.add("username", loginDto.getUsername());
         body.add("password", loginDto.getPassword());
-        body.add("email", loginDto.getEmail());
 
         HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(body, header);
 
@@ -67,5 +67,16 @@ public class CvatApiClient {
 
     public UsersResponseDto requestUsersList() {
         return restTemplate.getForObject(apiUrl, UsersResponseDto.class);
+    }
+
+    public String requestUsersSelf(HttpServletRequest request, String key) {
+        Cookie[] cookies = request.getCookies();
+        HttpHeaders header = new HttpHeaders();
+        header.add("Cookie", cookies.toString());
+        header.add("X-CSRFTOKEN", key);
+        System.out.println(header.toString());
+        HttpEntity entity = new HttpEntity(null, header);
+
+        return restTemplate.exchange("http://localhost:8080/api/v1/users/self", HttpMethod.GET, entity, String.class).toString();
     }
 }

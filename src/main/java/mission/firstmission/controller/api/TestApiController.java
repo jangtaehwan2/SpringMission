@@ -8,6 +8,12 @@ import mission.firstmission.domain.user.dto.UsersResponseDto;
 import mission.firstmission.service.ApiService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.net.URI;
+
 @RequiredArgsConstructor
 @RestController
 public class TestApiController {
@@ -31,14 +37,10 @@ public class TestApiController {
     }
 
     @PostMapping("/api/v1/auth/login")
-    public LoginDto requestLogin(@RequestBody LoginDto loginDto) {
-        System.out.println(loginDto);
-        LoginDto newLogin = LoginDto.builder()
-                .username(loginDto.getUsername())
-                .password(loginDto.getPassword())
-                .email(loginDto.getEmail())
-                .build();
-        return apiService.requestLogin(newLogin);
+    public LoginDto requestLogin(@RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
+        // true => session 없을 시 생성 / false => session 생성 x
+        HttpSession session = request.getSession(true);
+        return apiService.requestLogin(loginDto, session, response);
     }
 
     @GetMapping("/api/v1/auth/login/dto")
@@ -51,13 +53,14 @@ public class TestApiController {
     }
 
     @GetMapping("/api/v1/auth/login/test")
-    public LoginDto requestLoginTest2() {
+    public LoginDto requestLoginTest2(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(true);
         LoginDto loginDto = LoginDto.builder()
                 .username("Django")
                 .password("98470000")
                 .email("")
                 .build();
-        return apiService.requestLogin(loginDto);
+        return apiService.requestLogin(loginDto, session, response);
     }
 
     @PostMapping("/api/v1/auth/register")
@@ -70,4 +73,11 @@ public class TestApiController {
         System.out.println(registerDto.getPassword2());
         return apiService.requestRegister(registerDto);
     }
+
+    @GetMapping("/api/v1/users/self/{key}")
+    public String requestUsersSelf(HttpServletRequest request, @PathVariable String key) {
+        return apiService.requestUsersSelf(request, key);
+    }
+
+
 }
