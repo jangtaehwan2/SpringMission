@@ -43,7 +43,7 @@ public class UsersService {
         if(users == null){
             throw new RuntimeException("Not found Users");
         }
-        if(!users.getPw().equals(signInDto.getPw())) {
+        if(!users.getPw().equals(signInDto.getPassword())) {
             throw new RuntimeException("Password mismatch");
         }
         return users;

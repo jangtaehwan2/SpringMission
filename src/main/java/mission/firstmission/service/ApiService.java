@@ -5,8 +5,10 @@ import mission.firstmission.datacenter.apiclient.CvatApiClient;
 import mission.firstmission.datacenter.apiclient.SearchApiClient;
 import mission.firstmission.domain.cvat.dto.LoginDto;
 import mission.firstmission.domain.search.dto.SearchResponseDto;
+import mission.firstmission.domain.user.User;
 import mission.firstmission.domain.user.dto.RegisterDto;
 import mission.firstmission.domain.user.dto.UsersResponseDto;
+import mission.firstmission.domain.users.dto.UsersSignInDto;
 import mission.firstmission.manager.SessionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,4 +58,11 @@ public class ApiService {
         return cvatApiClient.requestUsersSelf(request, key);
     }
 
+    public LoginDto cvatLogin(UsersSignInDto user) {
+        return cvatApiClient.cvatLogin(user);
+    }
+
+    public User cvatSelfUser() {
+        return cvatApiClient.getSelfUser();
+    }
 }
