@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,8 +72,9 @@ public class CvatApiClient {
 
     public String requestUsersSelf(HttpServletRequest request, String key) {
         Cookie[] cookies = request.getCookies();
+        System.out.println(cookies);
         HttpHeaders header = new HttpHeaders();
-        header.add("Cookie", cookies.toString());
+        header.add("Cookie", Arrays.toString(cookies));
         header.add("X-CSRFTOKEN", key);
         System.out.println(header.toString());
         HttpEntity entity = new HttpEntity(null, header);
