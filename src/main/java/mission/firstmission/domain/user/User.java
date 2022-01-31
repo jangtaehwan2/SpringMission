@@ -5,20 +5,18 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
-@Entity
 public class User {
-    @Id
     private int id;
-
     private String url;
     private String username;
     private String email;
     private String first_name;
     private String last_name;
-    private String groups;
+    private List<String> groups;
     private boolean is_staff;
     private boolean is_superuser;
     private boolean is_active;

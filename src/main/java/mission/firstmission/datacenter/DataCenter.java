@@ -2,7 +2,7 @@ package mission.firstmission.datacenter;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import mission.firstmission.datacenter.repository.nosql.PostsRepository;
+//import mission.firstmission.datacenter.repository.nosql.PostsRepository;
 import mission.firstmission.datacenter.repository.relational.UsersRepository;
 import mission.firstmission.domain.users.Users;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @Component
 public class DataCenter implements DataCenterInterface{
     private final UsersRepository usersRepository;
-    private final PostsRepository postsRepository;
+//    private final PostsRepository postsRepository;
 
     @Override
     public Optional<Users> getUsersById(Long id) {

@@ -11,18 +11,18 @@ import mission.firstmission.domain.users.Users;
 public class UsersSignInDto {
 
     private String name;
-    private String pw;
+    private String password;
 
     @Builder
     public UsersSignInDto(String name, String pw) {
         this.name = name;
-        this.pw = pw;
+        this.password = pw;
     }
 
     public Users toEntity() {
         return Users.builder()
                 .name(name)
-                .pw(pw)
+                .pw(password)
                 .build();
     }
 }

@@ -3,8 +3,10 @@ package mission.firstmission.datacenter.apiclient;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import mission.firstmission.domain.cvat.dto.LoginDto;
+import mission.firstmission.domain.user.User;
 import mission.firstmission.domain.user.dto.RegisterDto;
 import mission.firstmission.domain.user.dto.UsersResponseDto;
+import mission.firstmission.domain.users.dto.UsersSignInDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -34,6 +37,9 @@ public class CvatApiClient {
     private final String loginUrl = "http://localhost:8080/api/v1/auth/login";
 
     private final String registerUrl = "http://localhost:8080/api/v1/auth/register";
+
+    private HttpHeaders headers;
+    private String loginKey;
 
     public String authUrl() {
         HashMap<String, Object> serverUrl = new HashMap<>();
@@ -80,5 +86,40 @@ public class CvatApiClient {
         HttpEntity entity = new HttpEntity(null, header);
 
         return restTemplate.exchange("http://localhost:8080/api/v1/users/self", HttpMethod.GET, entity, String.class).toString();
+    }
+
+    public LoginDto cvatLogin(UsersSignInDto user) {
+        HttpHeaders header = new HttpHeaders();
+
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+
+        body.add("username", user.getName());
+        body.add("password", user.getPassword());
+
+        HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(body, header);
+
+//        return restTemplate.postForObject(loginUrl, entity, LoginDto.class);
+
+        HttpEntity<LoginDto> response = restTemplate.exchange(loginUrl, HttpMethod.POST, entity, LoginDto.class);
+
+        this.headers = response.getHeaders();
+        LoginDto responseBody = response.getBody();
+        this.loginKey = responseBody.getKey();
+        return responseBody;
+    }
+
+    public User getSelfUser() {
+        String userURL = "http://localhost:8080/api/v1/users/self";
+        List<String> setCookieList = this.headers.get(HttpHeaders.SET_COOKIE);
+
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.set(HttpHeaders.AUTHORIZATION, "Token " + this.loginKey);
+        if (setCookieList != null) {
+            requestHeaders.addAll(HttpHeaders.SET_COOKIE, setCookieList);
+        }
+
+        HttpEntity<MultiValueMap<String, Object>> entity = new HttpEntity<>(null, requestHeaders);
+        HttpEntity<User> response = restTemplate.exchange(userURL, HttpMethod.GET, entity, User.class);
+        return response.getBody();
     }
 }
